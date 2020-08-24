@@ -22,29 +22,33 @@ class App extends Component {
   render() {
     const cookies = new Cookies();
 
-    return (
-      <HashRouter>
-          <React.Suspense fallback={loading}>
-            <Switch>
+    return(
+        <div>Hello world</div>
+    )
 
-              <Route exact path="/feeds" name="News Feeds" render={props => <Feeds {...props}/>} />
-
-                <Route exact path="/feeds/details/:id" name="News Feeds Details" render={props => <NewsFeeds {...props}/>} />
-
-              <Route exact path="/login" name="Login Page" render={props => <Login {...props}/>} />
-              <Route path="/" name="Home" render={props =>
-
-                  (cookies.get('token')!=null?
-                  <TheLayout {...props}/>:
-                      <Redirect from="/" to="/feeds" />
-                      )
-
-              }
-              />
-            </Switch>
-          </React.Suspense>
-      </HashRouter>
-    );
+    // return (
+    //   <HashRouter>
+    //       <React.Suspense fallback={loading}>
+    //         <Switch>
+    //
+    //           <Route exact path="/feeds" name="News Feeds" render={props => <Feeds {...props}/>} />
+    //
+    //             <Route exact path="/feeds/details/:id" name="News Feeds Details" render={props => <NewsFeeds {...props}/>} />
+    //
+    //           <Route exact path="/login" name="Login Page" render={props => <Login {...props}/>} />
+    //           <Route path="/" name="Home" render={props =>
+    //
+    //               (cookies.get('token')!=null?
+    //               <TheLayout {...props}/>:
+    //                   <Redirect from="/" to="/feeds" />
+    //                   )
+    //
+    //           }
+    //           />
+    //         </Switch>
+    //       </React.Suspense>
+    //   </HashRouter>
+    // );
   }
 }
 
