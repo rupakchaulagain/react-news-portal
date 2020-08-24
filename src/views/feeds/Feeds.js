@@ -88,6 +88,7 @@ class Feeds extends React.Component {
 
                                     <CListGroupItem key={2}>
                                         <FacebookShareButton
+                                            quote={news.posttitle}
                                             url={`https://festive-jepsen-4d10b9.netlify.app/#/feeds/details/${news._id}`}>
 
                                             <FacebookIcon logoFillColor="white"/>

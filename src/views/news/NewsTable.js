@@ -140,8 +140,8 @@ const NewsTable = (props) => {
 
                             <td>
                                 <FacebookShareButton
-                                    description={item.postdetails}
-                                    url={`https://frozen-refuge-74833.herokuapp.com/feeds/details/${item._id}`}
+                                    quote={item.posttitle}
+                                    url={`https://festive-jepsen-4d10b9.netlify.app/#/feeds/details/${item._id}`}
 
                                 >
                                     <FacebookIcon logoFillColor="white"/>
