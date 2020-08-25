@@ -3,6 +3,7 @@ import {CButton, CForm, CFormGroup, CInput, CLabel, CModal, CModalBody, CModalHe
 import * as axios from "axios";
 import Cookies from "universal-cookie";
 import CIcon from "@coreui/icons-react";
+import {BASE_URL} from "../../../api/Api";
 
 class EditModal extends React.Component {
     constructor(props) {
@@ -33,9 +34,8 @@ class EditModal extends React.Component {
         let polls = {
             polltitle: this.state.polltitle,
         }
-
-
-        axios.put(`https://frozen-refuge-74833.herokuapp.com/polls/${this.state._id}`, polls,
+        
+        axios.put(BASE_URL+`/polls/${this.state._id}`, polls,
             {
                 headers: {
                     Authorization: cookies.get('token'),
@@ -43,7 +43,7 @@ class EditModal extends React.Component {
             })
             .then(response => {
 
-                axios.get('https://frozen-refuge-74833.herokuapp.com/polls/',
+                axios.get(BASE_URL+'/polls/',
                     {
                         headers: {
 
@@ -78,7 +78,7 @@ class EditModal extends React.Component {
     componentDidMount() {
         const cookies = new Cookies();
 
-        axios.get(`https://frozen-refuge-74833.herokuapp.com/polls/${this.props.editItem}`,
+        axios.get(BASE_URL+`/polls/${this.props.editItem}`,
             {
                 headers: {
                     Authorization: cookies.get('token')

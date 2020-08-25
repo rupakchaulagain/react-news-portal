@@ -5,6 +5,7 @@ import * as axios from "axios";
 import SuccessAlert from "../../ui/alerts/SuccessAlert";
 import DeleteAlert from "../../ui/alerts/DeleteAlert";
 import Cookies from "universal-cookie";
+import {BASE_URL} from "../../api/Api";
 
 class User extends React.Component {
 
@@ -37,7 +38,7 @@ class User extends React.Component {
 
     const cookies = new Cookies();
 
-    axios.get('https://frozen-refuge-74833.herokuapp.com/users/me',
+    axios.get(BASE_URL+'/users/me',
         {
           headers: {
 

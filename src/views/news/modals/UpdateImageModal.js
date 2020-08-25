@@ -3,6 +3,7 @@ import {CButton, CForm, CFormGroup, CInput, CLabel, CModal, CModalBody, CImg, CM
 import * as axios from "axios";
 import Cookies from "universal-cookie";
 import CIcon from "@coreui/icons-react";
+import {BASE_URL} from "../../../api/Api";
 
 class UpdateImageModal extends React.Component {
     constructor(props) {
@@ -30,7 +31,7 @@ class UpdateImageModal extends React.Component {
 
         const cookies = new Cookies();
 
-        axios.post(`https://frozen-refuge-74833.herokuapp.com/posts/updateImage/${this.props.imageItem}`, this.state.selectedFile,
+        axios.post(BASE_URL+`/posts/updateImage/${this.props.imageItem}`, this.state.selectedFile,
             {
                 headers: {
                     Authorization: cookies.get('token'),
@@ -38,7 +39,7 @@ class UpdateImageModal extends React.Component {
             })
             .then(response => {
 
-                axios.get('https://frozen-refuge-74833.herokuapp.com/usersnews/')
+                axios.get(BASE_URL+'/usersnews/')
                     .then(response => {
 
                         console.log(response.data)
@@ -67,7 +68,7 @@ class UpdateImageModal extends React.Component {
     componentDidMount() {
         const cookies = new Cookies();
 
-        axios.get(`https://frozen-refuge-74833.herokuapp.com/posts/${this.props.imageItem}`,
+        axios.get(BASE_URL+`/posts/${this.props.imageItem}`,
             {
                 headers: {
                     Authorization: cookies.get('token')
@@ -102,7 +103,7 @@ class UpdateImageModal extends React.Component {
                             <CFormGroup>
                                 <CLabel htmlFor="images">Images</CLabel>
 
-                                <CImg src={"https://frozen-refuge-74833.herokuapp.com/PostImage/" + this.state.images}
+                                <CImg src={BASE_URL+"/PostImage/" + this.state.images}
                                         alt="image"
                                         style={{width: 500, height: 400}}/>
                                 <CInput type="file" name="files" onChange={this.imageUploader}

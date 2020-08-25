@@ -1,0 +1,2 @@
+(this["webpackJsonpnews-portal"]=this["webpackJsonpnews-portal"]||[]).push([[7],{96:function(t,e,n){"use strict";n.r(e);var a=n(14),r=n(15),c=n(18),u=n(16),s=n(1),o=n.n(s),p=function(t){Object(c.a)(n,t);var e=Object(u.a)(n);function n(){return Object(a.a)(this,n),e.apply(this,arguments)}return Object(r.a)(n,[{key:"render",value:function(){return o.a.createElement(o.a.Fragment,null)}}]),n}(o.a.Component);e.default=p}}]);
+//# sourceMappingURL=7.c646d2a9.chunk.js.map

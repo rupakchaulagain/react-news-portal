@@ -13,6 +13,7 @@ import {
 } from "@coreui/react";
 import * as axios from "axios";
 import Cookies from "universal-cookie";
+import {BASE_URL} from "../../../api/Api";
 
 class DetailModal extends React.Component {
     constructor(props) {
@@ -26,7 +27,7 @@ class DetailModal extends React.Component {
     componentWillMount() {
         const cookies = new Cookies();
 
-        axios.get(`https://frozen-refuge-74833.herokuapp.com/users/me`,
+        axios.get(BASE_URL+`/users/me`,
             {
                 headers: {
                     Authorization: cookies.get('token')

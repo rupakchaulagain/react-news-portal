@@ -3,6 +3,7 @@ import {CButton, CCard, CCardBody, CForm, CFormGroup, CInput, CLabel, CTextarea,
 import * as axios from "axios";
 import CIcon from "@coreui/icons-react";
 import Cookies from "universal-cookie";
+import {BASE_URL} from "../../api/Api";
 
 class NewsForm extends React.Component {
     constructor(props) {
@@ -53,7 +54,7 @@ class NewsForm extends React.Component {
         formData.append('postconclusion', this.state.postconclusion)
 
 
-        axios.post('https://frozen-refuge-74833.herokuapp.com/posts/',
+        axios.post(BASE_URL+'/posts/',
             formData,
             {
                 headers: {
@@ -62,7 +63,7 @@ class NewsForm extends React.Component {
             })
             .then(response => {
 
-                axios.get('https://frozen-refuge-74833.herokuapp.com/usersnews/')
+                axios.get(BASE_URL+'/usersnews/')
                     .then(response => {
 
                         console.log(response.data)

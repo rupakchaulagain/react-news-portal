@@ -7,6 +7,7 @@ import DeleteModal from "./modals/DeleteModal";
 import SuccessAlert from "../../ui/alerts/SuccessAlert";
 import DeleteAlert from "../../ui/alerts/DeleteAlert";
 import Cookies from "universal-cookie";
+import {BASE_URL} from "../../api/Api";
 
 class News extends React.Component {
 
@@ -101,7 +102,7 @@ class News extends React.Component {
 
         const cookies = new Cookies();
 
-        axios.get('https://frozen-refuge-74833.herokuapp.com/posts/',
+        axios.get(BASE_URL+'/posts/',
             {
                 headers: {
 

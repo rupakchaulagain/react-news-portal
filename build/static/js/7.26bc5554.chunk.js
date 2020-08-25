@@ -1,2 +1,0 @@
-(this["webpackJsonpnews-portal"]=this["webpackJsonpnews-portal"]||[]).push([[7],{667:function(t,e,n){"use strict";n.r(e);var a=n(64),r=n(65),c=n(68),u=n(66),s=n(0),o=n.n(s),p=function(t){Object(c.a)(n,t);var e=Object(u.a)(n);function n(){return Object(a.a)(this,n),e.apply(this,arguments)}return Object(r.a)(n,[{key:"render",value:function(){return o.a.createElement(o.a.Fragment,null)}}]),n}(o.a.Component);e.default=p}}]);
-//# sourceMappingURL=7.26bc5554.chunk.js.map

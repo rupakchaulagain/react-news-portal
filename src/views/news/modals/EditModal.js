@@ -3,6 +3,7 @@ import {CButton, CForm, CFormGroup, CInput, CLabel, CModal, CModalBody, CModalHe
 import * as axios from "axios";
 import Cookies from "universal-cookie";
 import CIcon from "@coreui/icons-react";
+import {BASE_URL} from "../../../api/Api";
 
 class EditModal extends React.Component {
     constructor(props) {
@@ -40,8 +41,7 @@ class EditModal extends React.Component {
             postconclusion: this.state.postconclusion,
         }
 
-
-        axios.put(`https://frozen-refuge-74833.herokuapp.com/posts/${this.state._id}`, news,
+        axios.put(BASE_URL+`/posts/${this.state._id}`, news,
             {
                 headers: {
                     Authorization: cookies.get('token'),

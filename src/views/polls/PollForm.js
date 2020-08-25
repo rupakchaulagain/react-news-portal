@@ -3,6 +3,7 @@ import {CButton, CCard, CCardBody, CForm, CFormGroup, CInput, CLabel,} from "@co
 import * as axios from "axios";
 import CIcon from "@coreui/icons-react";
 import Cookies from "universal-cookie";
+import {BASE_URL} from "../../api/Api";
 
 class PollForm extends React.Component {
     constructor(props) {
@@ -35,7 +36,7 @@ class PollForm extends React.Component {
             polltitle: this.state.polltitle
         }
 
-        axios.post('https://frozen-refuge-74833.herokuapp.com/polls/', polls,
+        axios.post(BASE_URL+'/polls/', polls,
             {
                 headers: {
                     Authorization: cookies.get('token'),
@@ -43,7 +44,7 @@ class PollForm extends React.Component {
             })
             .then(response => {
 
-                axios.get('https://frozen-refuge-74833.herokuapp.com/polls/',
+                axios.get(BASE_URL+'/polls/',
                     {
                         headers: {
                             Authorization: cookies.get('token'),

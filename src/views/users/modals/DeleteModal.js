@@ -2,6 +2,7 @@ import React from 'react'
 import {CButton, CModal, CModalBody, CModalFooter, CModalHeader} from "@coreui/react";
 import * as axios from "axios";
 import Cookies from "universal-cookie";
+import {BASE_URL} from "../../../api/Api";
 
 class DeleteModal extends React.Component {
 
@@ -10,7 +11,7 @@ class DeleteModal extends React.Component {
 
         const cookies = new Cookies();
 
-        axios.delete(`http://localhost:3000/posts/${id}`,
+        axios.delete(BASE_URL+`/posts/${id}`,
             {
                 headers: {
 
@@ -20,7 +21,7 @@ class DeleteModal extends React.Component {
         )
             .then(response => {
 
-                axios.get('http://localhost:3000/usersnews/')
+                axios.get(BASE_URL+'/usersnews/')
                     .then(response => {
 
                         console.log(response.data)

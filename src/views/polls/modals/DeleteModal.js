@@ -2,6 +2,7 @@ import React from 'react'
 import {CButton, CModal, CModalBody, CModalFooter, CModalHeader} from "@coreui/react";
 import * as axios from "axios";
 import Cookies from "universal-cookie";
+import {BASE_URL} from "../../../api/Api";
 
 class DeleteModal extends React.Component {
 
@@ -9,7 +10,7 @@ class DeleteModal extends React.Component {
 
         const cookies = new Cookies();
 
-        axios.delete(`https://frozen-refuge-74833.herokuapp.com/polls/${id}`,
+        axios.delete(BASE_URL+`/polls/${id}`,
             {
                 headers: {
 
@@ -19,7 +20,7 @@ class DeleteModal extends React.Component {
         )
             .then(response => {
 
-                axios.get('https://frozen-refuge-74833.herokuapp.com/polls/',
+                axios.get(BASE_URL+'/polls/',
                     {
                         headers: {
 
