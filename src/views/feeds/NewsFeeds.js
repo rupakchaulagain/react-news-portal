@@ -12,6 +12,7 @@ import {
 } from "@coreui/react";
 import Cookies from "universal-cookie";
 import * as axios from "axios";
+import {BASE_URL} from "../../api/Api";
 
 class NewsFeeds extends React.Component {
 
@@ -23,11 +24,11 @@ class NewsFeeds extends React.Component {
 
         console.log(this.props)
 
-        const id=this.props.match.params.id
+        const id = this.props.match.params.id
 
         const cookies = new Cookies();
 
-        axios.get(`https://frozen-refuge-74833.herokuapp.com/posts/${id}`,
+        axios.get(BASE_URL + `/posts/${id}`,
             {
                 headers: {
 
@@ -53,39 +54,39 @@ class NewsFeeds extends React.Component {
     render() {
         return (
 
-                    <CCol xs="12" sm="12" md="12">
-                        <CCard>
-                            <CCardHeader>
-                                {this.state.news.posttitle}
-                            </CCardHeader>
-                            <CCardBody>
+            <CCol xs="12" sm="12" md="12">
+                <CCard>
+                    <CCardHeader>
+                        {this.state.news.posttitle}
+                    </CCardHeader>
+                    <CCardBody>
 
-                                <CListGroupItem>
-                                    <h3> Post Category:</h3> {this.state.news.postcategory}
-                                </CListGroupItem>
+                        <CListGroupItem>
+                            <h3> Post Category:</h3> {this.state.news.postcategory}
+                        </CListGroupItem>
 
 
-                                <CJumbotron fluid>
-                                    <CContainer fluid>
-                                        <CImg src={"https://frozen-refuge-74833.herokuapp.com/PostImage/" + this.state.news.images}
-                                              alt="image"
-                                              style={{width: 500, height: 400}}/>
-                                    </CContainer>
-                                </CJumbotron>
-                                <CListGroup>
-                                    <CListGroupItem key={1}>
-                                        {this.state.news.postdetails}
-                                    </CListGroupItem>
-                                    <CListGroupItem key={2}>
-                                        <h3> Post Conclusion:</h3>{this.state.news.postconclusion}
-                                    </CListGroupItem>
+                        <CJumbotron fluid>
+                            <CContainer fluid>
+                                <CImg src={BASE_URL + "/PostImage/" + this.state.news.images}
+                                      alt="image"
+                                      style={{width: 500, height: 400}}/>
+                            </CContainer>
+                        </CJumbotron>
+                        <CListGroup>
+                            <CListGroupItem key={1}>
+                                {this.state.news.postdetails}
+                            </CListGroupItem>
+                            <CListGroupItem key={2}>
+                                <h3> Post Conclusion:</h3>{this.state.news.postconclusion}
+                            </CListGroupItem>
 
-                                </CListGroup>
+                        </CListGroup>
 
-                            </CCardBody>
+                    </CCardBody>
 
-                        </CCard>
-                    </CCol>
+                </CCard>
+            </CCol>
 
 
         )

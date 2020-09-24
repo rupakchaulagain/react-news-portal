@@ -16,6 +16,7 @@ import {
 } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
 import * as axios from "axios";
+import {BASE_URL} from "../../api/Api";
 
 class Login extends React.Component {
 
@@ -30,7 +31,7 @@ class Login extends React.Component {
             password: this.state.password
         }
 
-        axios.post('https://frozen-refuge-74833.herokuapp.com/users/login', user)
+        axios.post(BASE_URL + '/users/login', user)
             .then(function (response) {
                 console.log(response);
 

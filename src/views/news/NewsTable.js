@@ -7,6 +7,7 @@ import {FacebookIcon, FacebookShareButton} from "react-share"
 import Cookies from "universal-cookie";
 import * as axios from "axios";
 import UpdateImageModal from "./modals/UpdateImageModal";
+import {BASE_URL} from "../../api/Api";
 
 const deleteImage = (id, props) => {
 
@@ -126,7 +127,7 @@ const NewsTable = (props) => {
 
                             <td>
                                 {item.images !== null ?
-                                    <CImg src={"https://frozen-refuge-74833.herokuapp.com/PostImage/" + item.images}
+                                    <CImg src={BASE_URL+"/PostImage/" + item.images}
                                           alt="image" style={{width: 500, height: 400}}/> :
                                     <CImg src={""}
                                           alt="image" style={{width: 500, height: 400}}/>}

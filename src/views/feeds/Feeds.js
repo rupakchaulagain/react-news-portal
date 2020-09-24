@@ -14,6 +14,7 @@ import Cookies from "universal-cookie";
 import * as axios from "axios";
 import {Link} from "react-router-dom";
 import {FacebookIcon, FacebookShareButton} from "react-share";
+import {BASE_URL} from "../../api/Api";
 
 class Feeds extends React.Component {
 
@@ -26,7 +27,7 @@ class Feeds extends React.Component {
 
         const cookies = new Cookies();
 
-        axios.get('https://frozen-refuge-74833.herokuapp.com/usersnews/',
+        axios.get(BASE_URL+'/usersnews/',
             {
                 headers: {
 
@@ -68,9 +69,9 @@ class Feeds extends React.Component {
 
                                 <CJumbotron fluid>
 
-                                    <Link to={`/feeds/details/${news._id}`}>
+                                    <Link to={BASE_URL + `/feeds/details/${news._id}`}>
                                         <CContainer fluid>
-                                            <CImg src={"https://frozen-refuge-74833.herokuapp.com/PostImage/" + news.images}
+                                            <CImg src={BASE_URL + "/PostImage/" + news.images}
                                                   alt="image"
                                                   style={{width: 500, height: 400}}/>
                                         </CContainer>

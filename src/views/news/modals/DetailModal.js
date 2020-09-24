@@ -103,7 +103,7 @@ class DetailModal extends React.Component {
                                         <CFormGroup>
                                         <CLabel htmlFor="productCategory">Image</CLabel><br></br>
                                             <CImg
-                                                src={"https://frozen-refuge-74833.herokuapp.com/PostImage/"+this.state.news.images}
+                                                src={BASE_URL+"/PostImage/"+this.state.news.images}
                                                 style={{width: 500,height:400}}
                                             />
                                         </CFormGroup>

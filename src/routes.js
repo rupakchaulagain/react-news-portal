@@ -10,7 +10,7 @@ const Polls = React.lazy(() => import('./views/polls/Polls'));
 const User = React.lazy(() => import('./views/users/User'));
 
 const routes = [
-  {path: '/', exact: true, name: 'Home'},
+  {path: '/home', exact: true, name: 'Home'},
   {path: '/dashboard', name: 'Dashboard', component: Dashboard},
   {path: '/news', name: 'News', component: News},
   {path: '/polls', name: 'Polls', component: Polls},

@@ -127,8 +127,7 @@ class News extends React.Component {
 
             })
     }
-
-
+    
     render() {
         return (
 

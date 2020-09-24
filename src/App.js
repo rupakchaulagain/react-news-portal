@@ -32,6 +32,7 @@ class App extends Component {
                 <Route exact path="/feeds/details/:id" name="News Feeds Details" render={props => <NewsFeeds {...props}/>} />
 
               <Route exact path="/login" name="Login Page" render={props => <Login {...props}/>} />
+
               <Route path="/" name="Home" render={props =>
 
                   (cookies.get('token')!=null?
