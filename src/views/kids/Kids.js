@@ -1,7 +1,7 @@
 import React from 'react'
 import {CCard, CCardBody, CCol, CNav, CNavItem, CNavLink, CRow, CTabContent, CTabPane, CTabs,} from '@coreui/react'
-import QuestionsForm from "./QuestionsForm";
-import QuestionsTable from "./QuestionsTable";
+import KidsForm from "./KidsForm";
+import KidsTable from "./KidsTable";
 import * as axios from "axios";
 import DeleteModal from "./modals/DeleteModal";
 import SuccessAlert from "../../ui/alerts/SuccessAlert";
@@ -9,13 +9,13 @@ import DeleteAlert from "../../ui/alerts/DeleteAlert";
 import Cookies from "universal-cookie";
 import {BASE_URL} from "../../api/Api";
 
-class Questions extends React.Component {
+class Kids extends React.Component {
 
     constructor(props) {
         super(props);
 
         this.state = {
-            questionsList: [],
+            kidsList: [],
             deleteModal: false,
             showSuccessAlert: false,
             showDeleteAlert: false,
@@ -36,10 +36,10 @@ class Questions extends React.Component {
 
     }
 
-    updateQuestions = (questionsList) => {
+    updateKids = (kidsList) => {
 
         this.setState({
-            questionsList: questionsList
+            kidsList: kidsList
         })
 
 
@@ -102,7 +102,7 @@ class Questions extends React.Component {
 
         const cookies = new Cookies();
 
-        axios.get(BASE_URL+'/Questions/',
+        axios.get(BASE_URL+'/Kids/',
             {
                 headers: {
 
@@ -116,7 +116,7 @@ class Questions extends React.Component {
                 const data = response.data
 
                 this.setState({
-                    questionsList: data,
+                    kidsList: data,
                     modal: {
                         addNavLink: false,
                         addTab: false,
@@ -155,7 +155,7 @@ class Questions extends React.Component {
                                     <CNav variant="tabs">
                                         <CNavItem onClick={this.addTabController}>
                                             <CNavLink active={this.state.modal.addNavLink}>
-                                                Add Questions
+                                                Add Kids
                                             </CNavLink>
                                         </CNavItem>
                                         <CNavItem onClick={this.manageTabController}>
@@ -168,20 +168,20 @@ class Questions extends React.Component {
                                     <CTabContent>
 
                                         <CTabPane active={this.state.modal.addTab}>
-                                            <QuestionsForm
+                                            <KidsForm
                                                 showErrorAlert={this.showErrorAlert}
                                                 showAlert={this.showAlert}
                                                 manageTabController={this.manageTabController}
-                                                updateQuestions={this.updateQuestions}/>
+                                                updateKids={this.updateKids}/>
                                         </CTabPane>
 
                                         <CTabPane active={this.state.modal.manageTab}>
-                                            <QuestionsTable
+                                            <KidsTable
                                                 showDeleteAlert={this.showDeleteAlert}
                                                 updateNews={this.updateNews}
                                                 deleteSupplier={this.deleteSupplier}
                                                 editProduct={this.editProduct}
-                                                questionsList={this.state.questionsList}/>
+                                                kidsList={this.state.kidsList}/>
                                         </CTabPane>
 
                                     </CTabContent>
@@ -198,4 +198,4 @@ class Questions extends React.Component {
 
 }
 
-export default Questions
+export default Kids

@@ -5,22 +5,19 @@ import CIcon from "@coreui/icons-react";
 import Cookies from "universal-cookie";
 import {BASE_URL} from "../../api/Api";
 
-class QuestionsForm extends React.Component {
+class KidsForm extends React.Component {
     constructor(props) {
         super(props);
 
         console.log(props)
 
         this.state = {
-            questions: "",
-            description: "",
-            type: "",
-            level: "",
-            correctAnswer: "",
-            options1: "",
-            options2: "",
-            options3: "",
-            options4: "",
+            fullname: "",
+            age: "",
+            gender: "",
+            parentName: "",
+            images: "",
+            selectedFile: ""
         }
     }
 
@@ -34,29 +31,42 @@ class QuestionsForm extends React.Component {
     }
 
 
+    imageUploader = (e) => {
+        e.preventDefault()
+
+        console.log(e.target.files)
+
+        this.setState({
+            selectedFile: e.target.files[0],
+        })
+
+    }
+
     handleFormSubmit = (e) => {
         e.preventDefault()
 
-        let options = [this.state.options1,
-            this.state.options2,
-            this.state.options3,
-            this.state.options4,
-        ]
+        //
+        // let formData = new FormData()
+        // formData.append('fullname', this.state.fullname)
+        // formData.append('age', this.state.age);
+        // formData.append('gender', this.state.gender);
+        // formData.append('parentName', this.state.parentName);
+        // formData.append('images', this.state.selectedFile)
 
         let requestDTO = {
-            questions: this.state.questions,
-            description: this.state.description,
-            type: this.state.type,
-            level: this.state.level,
-            correctANswer: this.state.correctAnswer,
-            options: options
+            fullname: this.state.fullname,
+            age: this.state.age,
+            gender: this.state.gender,
+            parentName: this.state.parentName,
+            images: this.state.images
+
         }
 
         const cookies = new Cookies();
 
         console.log("token===", cookies.get('token'))
 
-        axios.post(BASE_URL + '/Questions/', requestDTO,
+        axios.post(BASE_URL + '/Kids/', requestDTO,
             {
                 headers: {
                     Authorization: cookies.get('token'),
@@ -64,7 +74,7 @@ class QuestionsForm extends React.Component {
             })
             .then(response => {
 
-                axios.get(BASE_URL + '/Questions/',
+                axios.get(BASE_URL + '/Kids/',
                     {
                         headers: {
                             Authorization: cookies.get('token'),
@@ -75,7 +85,7 @@ class QuestionsForm extends React.Component {
                         console.log(response.data)
                         const data = response.data
 
-                        this.props.updateQuestions(data)
+                        this.props.updateKids(data)
                     })
 
                 this.props.manageTabController()
@@ -105,71 +115,44 @@ class QuestionsForm extends React.Component {
 
                     <CForm onSubmit={this.handleFormSubmit}>
                         <CFormGroup>
-                            <CLabel htmlFor="questions">Questions</CLabel>
-                            <CInput name="questions" id="questions"
-                                    value={this.state.questions}
+                            <CLabel htmlFor="fullname">Full name</CLabel>
+                            <CInput name="fullname" id="fullname"
+                                    value={this.state.fullname}
                                     onChange={this.handleInputChange}
-                                    placeholder="Enter Questions"
+                                    placeholder="Enter Full Name"
                                     required="required"/>
                         </CFormGroup>
 
                         <CFormGroup>
-                            <CLabel htmlFor="description">Description</CLabel>
-                            <CInput name="description" id="description"
-                                    value={this.state.description}
+                            <CLabel htmlFor="age">Age</CLabel>
+                            <CInput name="age" id="age"
+                                    value={this.state.age}
                                     onChange={this.handleInputChange}
-                                    placeholder="Enter Description"
+                                    placeholder="Enter Age"
                                     required="required"/>
                         </CFormGroup>
 
                         <CFormGroup>
-                            <CLabel htmlFor="type">Type</CLabel>
-                            <CInput id="type" name="type"
-                                    value={this.state.type}
+                            <CLabel htmlFor="gender">Gender</CLabel>
+                            <CInput id="gender" name="gender"
+                                    value={this.state.gender}
                                     onChange={this.handleInputChange}
-                                    placeholder="Enter Type"/>
+                                    placeholder="Enter Gender"/>
                         </CFormGroup>
 
                         <CFormGroup>
-                            <CLabel htmlFor="level">Level</CLabel>
-                            <CInput name="level" id="level"
-                                    value={this.state.level}
+                            <CLabel htmlFor="parentName">Parent Name</CLabel>
+                            <CInput name="parentName" id="parentName"
+                                    value={this.state.parentName}
                                     onChange={this.handleInputChange}
-                                    placeholder="Enter level"
-                                    required="required"/>
-                        </CFormGroup>
-
-                        <CFormGroup>
-                            <CLabel htmlFor="Correct Answer">Correct Answer</CLabel>
-                            <CInput name="correctAnswer" id="correctAnswer"
-                                    value={this.state.correctAnswer}
-                                    onChange={this.handleInputChange}
-                                    placeholder="Enter Correct Answer"
+                                    placeholder="Enter Parent Name"
                                     required="required"/>
                         </CFormGroup>
 
                         <CFormGroup>
-                            <CLabel htmlFor="option1">Options</CLabel>
-                            <CInput name="options1" id="options1"
-                                    value={this.state.options1}
-                                    onChange={this.handleInputChange}
-                                    placeholder="Enter Option 1"
-                                    required="required"/>
-                            <CInput name="options2" id="options2"
-                                    value={this.state.options2}
-                                    onChange={this.handleInputChange}
-                                    placeholder="Enter Option 2"
-                                    required="required"/>
-                            <CInput name="options3" id="options3"
-                                    value={this.state.options3}
-                                    onChange={this.handleInputChange}
-                                    placeholder="Enter Option 3"
-                                    required="required"/>
-                            <CInput name="options4" id="options4"
-                                    value={this.state.options4}
-                                    onChange={this.handleInputChange}
-                                    placeholder="Enter Option 4"
-                                    required="required"/>
+                            <CLabel htmlFor="images">Images</CLabel>
+                            <CInput type="file" name="file" onChange={this.imageUploader}
+                                    placeholder="Enter Post Details"/>
                         </CFormGroup>
 
                         <CFormGroup>
@@ -187,4 +170,4 @@ class QuestionsForm extends React.Component {
     }
 }
 
-export default QuestionsForm
+export default KidsForm

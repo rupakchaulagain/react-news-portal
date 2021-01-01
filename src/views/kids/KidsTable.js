@@ -4,23 +4,20 @@ import DeleteModal from "./modals/DeleteModal";
 import DetailModal from "./modals/DetailModal";
 import EditModal from "./modals/EditModal";
 import {FacebookIcon, FacebookShareButton} from "react-share"
-import Cookies from "universal-cookie";
-import * as axios from "axios";
 import UpdateImageModal from "./modals/UpdateImageModal";
 import {BASE_URL} from "../../api/Api";
 
 const fields = [
 
-    'questions',
-    'description',
-    'type',
-    'options',
-    'correctANswer',
+    'fullname',
+    'gender',
+    'age',
+    'parentName',
     'actions']
 
-const QuestionsTable = (props) => {
+const KidsTable = (props) => {
 
-    let questionsList = props.questionsList
+    let kidsList = props.kidsList
     const [modal, setModal] = useState(false);
     const [detailModal, setDetailModal] = useState(false);
     const [editModal, setEditModal] = useState(false);
@@ -81,7 +78,7 @@ const QuestionsTable = (props) => {
                 toggle={toggle}/>
 
             <CDataTable
-                items={questionsList}
+                items={kidsList}
                 fields={fields}
                 bordered
                 itemsPerPage={10}
@@ -136,4 +133,4 @@ const QuestionsTable = (props) => {
     )
 }
 
-export default QuestionsTable
+export default KidsTable

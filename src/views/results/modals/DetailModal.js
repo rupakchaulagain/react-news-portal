@@ -21,14 +21,14 @@ class DetailModal extends React.Component {
         super(props);
 
         this.state = {
-            news: {}
+            results: {}
         }
     }
 
     componentDidMount() {
         const cookies = new Cookies();
 
-        axios.get(BASE_URL+`/posts/${this.props.selectedItem}`,
+        axios.get(BASE_URL+`/Results/${this.props.selectedItem}`,
             {
                 headers: {
                     Authorization: cookies.get('token')
@@ -38,7 +38,7 @@ class DetailModal extends React.Component {
             .then(response => {
 
                 this.setState({
-                    news: response.data
+                    results: response.data
                 })
 
             })
@@ -68,51 +68,39 @@ class DetailModal extends React.Component {
                                     <CCardBody>
 
                                         <CFormGroup>
-                                            <CLabel htmlFor="posttitle">Post Tittle</CLabel>
-                                            <CInput name="posttitle"
-                                                    value={this.state.news.posttitle} disabled="disabled"/>
+                                            <CLabel htmlFor="userId">User ID</CLabel>
+                                            <CInput name="userId"
+                                                    value={this.state.results.userId} disabled="disabled"/>
                                         </CFormGroup>
                                         <CFormGroup>
-                                            <CLabel htmlFor="productCategory">Post Category</CLabel>
-                                            <CInput name="postcategory"
-                                                    value={this.state.news.postcategory} disabled="disabled"/>
+                                            <CLabel htmlFor="totalQuestionAttempt">Total Question Attempt</CLabel>
+                                            <CInput name="totalQuestionAttempt"
+                                                    value={this.state.results.totalQuestionAttempt} disabled="disabled"/>
                                         </CFormGroup>
 
                                         <CFormGroup>
-                                            <CLabel htmlFor="postdetails">Post Details</CLabel>
-                                            <CInput name="postdetails" value={this.state.news.postdetails}
+                                            <CLabel htmlFor="totalright">Total Right</CLabel>
+                                            <CInput name="totalright" value={this.state.results.totalright}
                                                     disabled="disabled"/>
                                         </CFormGroup>
 
                                         <CFormGroup>
-                                            <CLabel htmlFor="postconclusion">Post Conclusion</CLabel>
-                                            <CInput name="postconclusion"
-                                                    value={this.state.news.postconclusion} disabled="disabled"/>
+                                            <CLabel htmlFor="level">Level</CLabel>
+                                            <CInput name="level"
+                                                    value={this.state.results.level} disabled="disabled"/>
                                         </CFormGroup>
-
-
-                                    </CCardBody>
-
-                                </CCard>
-                            </CCol>
-
-                            <CCol xs="12" sm="6">
-                                <CCard>
-                                    <CCardBody>
 
                                         <CFormGroup>
-                                        <CLabel htmlFor="productCategory">Image</CLabel><br></br>
-                                            <CImg
-                                                src={BASE_URL+"/PostImage/"+this.state.news.images}
-                                                style={{width: 500,height:400}}
-                                            />
+                                            <CLabel htmlFor="status">Status</CLabel>
+                                            <CInput name="status"
+                                                    value={this.state.results.status} disabled="disabled"/>
                                         </CFormGroup>
+
 
                                     </CCardBody>
 
                                 </CCard>
                             </CCol>
-
                         </CRow>
 
                     </CModalBody>

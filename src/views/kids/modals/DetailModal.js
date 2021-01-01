@@ -21,14 +21,14 @@ class DetailModal extends React.Component {
         super(props);
 
         this.state = {
-            news: {}
+            kids: {}
         }
     }
 
     componentDidMount() {
         const cookies = new Cookies();
 
-        axios.get(BASE_URL+`/posts/${this.props.selectedItem}`,
+        axios.get(BASE_URL + `/kids/${this.props.selectedItem}`,
             {
                 headers: {
                     Authorization: cookies.get('token')
@@ -38,7 +38,7 @@ class DetailModal extends React.Component {
             .then(response => {
 
                 this.setState({
-                    news: response.data
+                    kids: response.data
                 })
 
             })
@@ -46,7 +46,7 @@ class DetailModal extends React.Component {
 
     modalCancelBtn = () => {
 
-        this.props.selectedItem=null
+        this.props.selectedItem = null
         this.props.detailModalToggle()
     }
 
@@ -56,9 +56,8 @@ class DetailModal extends React.Component {
             <>
                 <CModal size={'xl'}
                         show={this.props.detailModal}
-                        onClose={this.props.detailModalToggle}
-                >
-                    <CModalHeader closeButton>News Detail</CModalHeader>
+                        onClose={this.props.detailModalToggle}>
+                    <CModalHeader closeButton>Kids Detail</CModalHeader>
                     <CModalBody>
 
                         <CRow>
@@ -68,26 +67,26 @@ class DetailModal extends React.Component {
                                     <CCardBody>
 
                                         <CFormGroup>
-                                            <CLabel htmlFor="posttitle">Post Tittle</CLabel>
-                                            <CInput name="posttitle"
-                                                    value={this.state.news.posttitle} disabled="disabled"/>
+                                            <CLabel htmlFor="fullname">Full Name</CLabel>
+                                            <CInput name="fullname"
+                                                    value={this.state.kids.fullname} disabled="disabled"/>
                                         </CFormGroup>
                                         <CFormGroup>
-                                            <CLabel htmlFor="productCategory">Post Category</CLabel>
-                                            <CInput name="postcategory"
-                                                    value={this.state.news.postcategory} disabled="disabled"/>
+                                            <CLabel htmlFor="age">Age</CLabel>
+                                            <CInput name="age"
+                                                    value={this.state.kids.age} disabled="disabled"/>
                                         </CFormGroup>
 
                                         <CFormGroup>
-                                            <CLabel htmlFor="postdetails">Post Details</CLabel>
-                                            <CInput name="postdetails" value={this.state.news.postdetails}
+                                            <CLabel htmlFor="gender">Gender</CLabel>
+                                            <CInput name="gender" value={this.state.kids.gender}
                                                     disabled="disabled"/>
                                         </CFormGroup>
 
                                         <CFormGroup>
-                                            <CLabel htmlFor="postconclusion">Post Conclusion</CLabel>
-                                            <CInput name="postconclusion"
-                                                    value={this.state.news.postconclusion} disabled="disabled"/>
+                                            <CLabel htmlFor="parentName">Parent Name</CLabel>
+                                            <CInput name="parentName"
+                                                    value={this.state.kids.parentName} disabled="disabled"/>
                                         </CFormGroup>
 
 
@@ -101,10 +100,10 @@ class DetailModal extends React.Component {
                                     <CCardBody>
 
                                         <CFormGroup>
-                                        <CLabel htmlFor="productCategory">Image</CLabel><br></br>
+                                            <CLabel htmlFor="productCategory">Image</CLabel><br></br>
                                             <CImg
-                                                src={BASE_URL+"/PostImage/"+this.state.news.images}
-                                                style={{width: 500,height:400}}
+                                                src={BASE_URL + "/PostImage/" + this.state.kids.images}
+                                                style={{width: 500, height: 400}}
                                             />
                                         </CFormGroup>
 

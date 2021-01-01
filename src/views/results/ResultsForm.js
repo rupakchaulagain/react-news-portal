@@ -5,7 +5,7 @@ import CIcon from "@coreui/icons-react";
 import Cookies from "universal-cookie";
 import {BASE_URL} from "../../api/Api";
 
-class KidsForm extends React.Component {
+class ResultsForm extends React.Component {
     constructor(props) {
         super(props);
 
@@ -66,7 +66,7 @@ class KidsForm extends React.Component {
 
         console.log("token===", cookies.get('token'))
 
-        axios.post(BASE_URL + '/Kids/', requestDTO,
+        axios.post(BASE_URL + '/Results/', requestDTO,
             {
                 headers: {
                     Authorization: cookies.get('token'),
@@ -74,7 +74,7 @@ class KidsForm extends React.Component {
             })
             .then(response => {
 
-                axios.get(BASE_URL + '/Kids/',
+                axios.get(BASE_URL + '/Results/',
                     {
                         headers: {
                             Authorization: cookies.get('token'),
@@ -85,7 +85,7 @@ class KidsForm extends React.Component {
                         console.log(response.data)
                         const data = response.data
 
-                        this.props.updateKids(data)
+                        this.props.updateResults(data)
                     })
 
                 this.props.manageTabController()
@@ -170,4 +170,4 @@ class KidsForm extends React.Component {
     }
 }
 
-export default KidsForm
+export default ResultsForm

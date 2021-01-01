@@ -1,5 +1,5 @@
 import React from 'react'
-import {CButton, CCard, CCardBody, CForm, CFormGroup, CInput, CLabel, CTextarea,} from "@coreui/react";
+import {CButton, CCard, CCardBody, CForm, CFormGroup, CInput, CLabel,} from "@coreui/react";
 import * as axios from "axios";
 import CIcon from "@coreui/icons-react";
 import Cookies from "universal-cookie";
@@ -12,12 +12,15 @@ class QuestionsForm extends React.Component {
         console.log(props)
 
         this.state = {
-            posttitle: "",
-            postcategory: "",
-            postdetails: "",
-            postconclusion: "",
-            uploading: false,
-            selectedFile: null,
+            questions: "",
+            description: "",
+            type: "",
+            level: "",
+            correctAnswer: "",
+            options1: "",
+            options2: "",
+            options3: "",
+            options4: "",
         }
     }
 
@@ -30,48 +33,49 @@ class QuestionsForm extends React.Component {
 
     }
 
-    imageUploader = (e) => {
-        e.preventDefault()
-
-        console.log(e.target.files)
-
-        this.setState({
-            selectedFile: e.target.files[0],
-        })
-
-    }
 
     handleFormSubmit = (e) => {
         e.preventDefault()
 
+        let options = [this.state.options1,
+            this.state.options2,
+            this.state.options3,
+            this.state.options4,
+        ]
+
+        let requestDTO = {
+            questions: this.state.questions,
+            description: this.state.description,
+            type: this.state.type,
+            level: this.state.level,
+            correctANswer: this.state.correctAnswer,
+            options: options
+        }
+
         const cookies = new Cookies();
 
-        let formData = new FormData()
-        formData.append('images', this.state.selectedFile)
-        formData.append('posttitle', this.state.posttitle);
-        formData.append('postcategory', this.state.postcategory);
-        formData.append('postdetails', this.state.postdetails);
-        formData.append('postconclusion', this.state.postconclusion)
+        console.log("token===", cookies.get('token'))
 
-
-        axios.post(BASE_URL+'/posts/',
-            formData,
+        axios.post(BASE_URL + '/Questions/', requestDTO,
             {
                 headers: {
                     Authorization: cookies.get('token'),
-                }
+                },
             })
             .then(response => {
 
-                axios.get(BASE_URL+'/usersnews/')
+                axios.get(BASE_URL + '/Questions/',
+                    {
+                        headers: {
+                            Authorization: cookies.get('token'),
+                        },
+                    })
                     .then(response => {
 
                         console.log(response.data)
                         const data = response.data
 
-                        this.props.updateNews(data)
-
-                        console.log("o/p" + this.state.newsList)
+                        this.props.updateQuestions(data)
                     })
 
                 this.props.manageTabController()
@@ -101,44 +105,71 @@ class QuestionsForm extends React.Component {
 
                     <CForm onSubmit={this.handleFormSubmit}>
                         <CFormGroup>
-                            <CLabel htmlFor="posttitle">Post tittle</CLabel>
-                            <CInput name="posttitle" id="posttitle"
-                                    value={this.state.posttitle}
+                            <CLabel htmlFor="questions">Questions</CLabel>
+                            <CInput name="questions" id="questions"
+                                    value={this.state.questions}
                                     onChange={this.handleInputChange}
-                                    placeholder="Enter Post Tittle"
+                                    placeholder="Enter Questions"
                                     required="required"/>
                         </CFormGroup>
 
                         <CFormGroup>
-                            <CLabel htmlFor="postcategory">Post Category</CLabel>
-                            <CInput name="postcategory" id="postcategory"
-                                    value={this.state.postcategory}
+                            <CLabel htmlFor="description">Description</CLabel>
+                            <CInput name="description" id="description"
+                                    value={this.state.description}
                                     onChange={this.handleInputChange}
-                                    placeholder="Enter Post Category"
+                                    placeholder="Enter Description"
                                     required="required"/>
                         </CFormGroup>
 
                         <CFormGroup>
-                            <CLabel htmlFor="postdetails">Post Details</CLabel>
-                            <CInput id="postdetails" name="postdetails"
-                                    value={this.state.postdetails}
+                            <CLabel htmlFor="type">Type</CLabel>
+                            <CInput id="type" name="type"
+                                    value={this.state.type}
                                     onChange={this.handleInputChange}
-                                    placeholder="Enter Post Details"/>
+                                    placeholder="Enter Type"/>
                         </CFormGroup>
 
                         <CFormGroup>
-                            <CLabel htmlFor="postconclusion">Post Conclusion</CLabel>
-                            <CTextarea name="postconclusion" id="postconclusion"
-                                       value={this.state.postconclusion}
-                                       onChange={this.handleInputChange}
-                                       placeholder="Enter Post Conclusion"
-                                       required="required"/>
+                            <CLabel htmlFor="level">Level</CLabel>
+                            <CInput name="level" id="level"
+                                    value={this.state.level}
+                                    onChange={this.handleInputChange}
+                                    placeholder="Enter level"
+                                    required="required"/>
                         </CFormGroup>
 
                         <CFormGroup>
-                            <CLabel htmlFor="images">Images</CLabel>
-                            <CInput type="file" name="file" onChange={this.imageUploader}
-                                    placeholder="Enter Post Details"/>
+                            <CLabel htmlFor="Correct Answer">Correct Answer</CLabel>
+                            <CInput name="correctAnswer" id="correctAnswer"
+                                    value={this.state.correctAnswer}
+                                    onChange={this.handleInputChange}
+                                    placeholder="Enter Correct Answer"
+                                    required="required"/>
+                        </CFormGroup>
+
+                        <CFormGroup>
+                            <CLabel htmlFor="option1">Options</CLabel>
+                            <CInput name="options1" id="options1"
+                                    value={this.state.options1}
+                                    onChange={this.handleInputChange}
+                                    placeholder="Enter Option 1"
+                                    required="required"/>
+                            <CInput name="options2" id="options2"
+                                    value={this.state.options2}
+                                    onChange={this.handleInputChange}
+                                    placeholder="Enter Option 2"
+                                    required="required"/>
+                            <CInput name="options3" id="options3"
+                                    value={this.state.options3}
+                                    onChange={this.handleInputChange}
+                                    placeholder="Enter Option 3"
+                                    required="required"/>
+                            <CInput name="options4" id="options4"
+                                    value={this.state.options4}
+                                    onChange={this.handleInputChange}
+                                    placeholder="Enter Option 4"
+                                    required="required"/>
                         </CFormGroup>
 
                         <CFormGroup>

@@ -1,21 +1,19 @@
 import React from 'react'
 import {CCard, CCardBody, CCol, CNav, CNavItem, CNavLink, CRow, CTabContent, CTabPane, CTabs,} from '@coreui/react'
-import KidsForm from "./KidsForm";
-import KidsTable from "./KidsTable";
+import ResultsTable from "./ResultsTable";
 import * as axios from "axios";
 import DeleteModal from "./modals/DeleteModal";
-import SuccessAlert from "../../ui/alerts/SuccessAlert";
 import DeleteAlert from "../../ui/alerts/DeleteAlert";
 import Cookies from "universal-cookie";
 import {BASE_URL} from "../../api/Api";
 
-class Kids extends React.Component {
+class Results extends React.Component {
 
     constructor(props) {
         super(props);
 
         this.state = {
-            kidsList: [],
+            resultsList: [],
             deleteModal: false,
             showSuccessAlert: false,
             showDeleteAlert: false,
@@ -36,10 +34,10 @@ class Kids extends React.Component {
 
     }
 
-    updateKids = (kidsList) => {
+    updateResults = (resultsList) => {
 
         this.setState({
-            kidsList: kidsList
+            resultsList: resultsList
         })
 
 
@@ -98,11 +96,10 @@ class Kids extends React.Component {
         })
     }
 
-    manageTabController = () => {
-
+    componentDidMount() {
         const cookies = new Cookies();
 
-        axios.get(BASE_URL+'/Kids/',
+        axios.get(BASE_URL+'/Results/',
             {
                 headers: {
 
@@ -116,17 +113,14 @@ class Kids extends React.Component {
                 const data = response.data
 
                 this.setState({
-                    kidsList: data,
-                    modal: {
-                        addNavLink: false,
-                        addTab: false,
-                        manageNavLink: true,
-                        manageTab: true
-                    }
+                    resultsList: data,
                 })
 
             })
+
     }
+
+
     
     render() {
         return (
@@ -136,30 +130,14 @@ class Kids extends React.Component {
                     <DeleteAlert
                         message={this.state.errorMessage.showErrorAlert.errorMessage}/>
                     : null}
-
-                {this.state.showSuccessAlert === true ?
-                    <SuccessAlert
-                        message={"News is added Successfully..."}/>
-                    : null}
-
-                {this.state.showDeleteAlert === true ?
-                    <DeleteAlert
-                        message={"News is deleted..."}/>
-                    : null}
-
                 <CRow>
                     <CCol xs="12" md="12" className="mb-4">
                         <CCard>
                             <CCardBody>
                                 <CTabs>
                                     <CNav variant="tabs">
-                                        <CNavItem onClick={this.addTabController}>
-                                            <CNavLink active={this.state.modal.addNavLink}>
-                                                Add Kids
-                                            </CNavLink>
-                                        </CNavItem>
-                                        <CNavItem onClick={this.manageTabController}>
-                                            <CNavLink active={this.state.modal.manageNavLink}>
+                                        <CNavItem>
+                                            <CNavLink active={true}>
                                                 Manage
                                             </CNavLink>
                                         </CNavItem>
@@ -167,21 +145,10 @@ class Kids extends React.Component {
 
                                     <CTabContent>
 
-                                        <CTabPane active={this.state.modal.addTab}>
-                                            <KidsForm
-                                                showErrorAlert={this.showErrorAlert}
-                                                showAlert={this.showAlert}
-                                                manageTabController={this.manageTabController}
-                                                updateKids={this.updateKids}/>
-                                        </CTabPane>
-
-                                        <CTabPane active={this.state.modal.manageTab}>
-                                            <KidsTable
+                                        <CTabPane active={true}>
+                                            <ResultsTable
                                                 showDeleteAlert={this.showDeleteAlert}
-                                                updateNews={this.updateNews}
-                                                deleteSupplier={this.deleteSupplier}
-                                                editProduct={this.editProduct}
-                                                kidsList={this.state.kidsList}/>
+                                                resultsList={this.state.resultsList}/>
                                         </CTabPane>
 
                                     </CTabContent>
@@ -198,4 +165,4 @@ class Kids extends React.Component {
 
 }
 
-export default Kids
+export default Results

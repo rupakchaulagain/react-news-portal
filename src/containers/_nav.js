@@ -9,31 +9,24 @@ export default [
   },
   {
     _tag: 'CSidebarNavItem',
-    name: 'Manage news',
-    to: '/news',
+    name: 'Manage Questions',
+    to: '/questions',
     badge: {
       color: 'info',
     }
   },
   {
     _tag: 'CSidebarNavItem',
-    name: 'Manage polls',
-    to: '/polls',
+    name: 'Manage Kids',
+    to: '/kids',
     badge: {
       color: 'info',
     }
   },
   {
     _tag: 'CSidebarNavItem',
-    name: 'Manage users',
-    to: '/users',
-    badge: {
-      color: 'info',
-    }
-  },  {
-    _tag: 'CSidebarNavItem',
-    name: 'News feeds',
-    to: '/feeds',
+    name: 'Manage Results',
+    to: '/results',
     badge: {
       color: 'info',
     }
