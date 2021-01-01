@@ -8,9 +8,10 @@ class DeleteModal extends React.Component {
 
     handleDeleteBtn = (id) => {
 
+
         const cookies = new Cookies();
 
-        axios.delete(BASE_URL+`/polls/${id}`,
+        axios.delete(BASE_URL+`/posts/${id}`,
             {
                 headers: {
 
@@ -20,20 +21,13 @@ class DeleteModal extends React.Component {
         )
             .then(response => {
 
-                axios.get(BASE_URL+'/polls/',
-                    {
-                        headers: {
-
-                            Authorization: cookies.get('token')
-                        }
-                    }
-                )
+                axios.get(BASE_URL+'/usersnews/')
                     .then(response => {
 
                         console.log(response.data)
                         const data = response.data
 
-                        this.props.updatePoll(data)
+                        this.props.updateNews(data)
                     })
 
                 this.props.toggle()
@@ -53,7 +47,7 @@ class DeleteModal extends React.Component {
                     show={this.props.modal}
                     onClose={this.props.toggle}
                 >
-                    <CModalHeader closeButton>Delete Polls</CModalHeader>
+                    <CModalHeader closeButton>Delete Product</CModalHeader>
                     <CModalBody>
                         Are you sure want to delete?
                     </CModalBody>

@@ -5,7 +5,7 @@ import CIcon from "@coreui/icons-react";
 import Cookies from "universal-cookie";
 import {BASE_URL} from "../../api/Api";
 
-class NewsForm extends React.Component {
+class QuestionsForm extends React.Component {
     constructor(props) {
         super(props);
 
@@ -156,4 +156,4 @@ class NewsForm extends React.Component {
     }
 }
 
-export default NewsForm
+export default QuestionsForm

@@ -1,26 +1,27 @@
 import React from 'react'
-import {CButton, CForm, CFormGroup, CInput, CLabel, CModal, CModalBody, CModalHeader} from "@coreui/react";
+import {CButton, CForm, CFormGroup, CInput, CLabel, CModal, CModalBody, CImg, CModalHeader} from "@coreui/react";
 import * as axios from "axios";
 import Cookies from "universal-cookie";
 import CIcon from "@coreui/icons-react";
 import {BASE_URL} from "../../../api/Api";
 
-class EditModal extends React.Component {
+class UpdateImageModal extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            news: {},
-            _id: this.props.editItem,
-            polltitle: "",
+            _id: this.props.imageItem,
+
         }
     }
 
-    handleInputChange = (e) => {
+    imageUploader = (e) => {
+        e.preventDefault()
 
-        const {name, value} = e.target
+        console.log(e.target.files)
+
         this.setState({
-            [name]: value
+            selectedFile: e.target.files[0],
         })
 
     }
@@ -30,37 +31,32 @@ class EditModal extends React.Component {
 
         const cookies = new Cookies();
 
+        let formData = new FormData()
+        formData.append('images', this.state.selectedFile)
 
-        let polls = {
-            polltitle: this.state.polltitle,
-        }
-        
-        axios.put(BASE_URL+`/polls/${this.state._id}`, polls,
+        // axios.post(BASE_URL +`/posts/updateImage/${this.props.imageItem}`, this.state.selectedFile,
+        axios.post(BASE_URL +`/posts/updateImage/${this.props.imageItem}`,
+            formData,
             {
                 headers: {
                     Authorization: cookies.get('token'),
-                },
+
+                }
             })
             .then(response => {
 
-                axios.get(BASE_URL+'/polls/',
-                    {
-                        headers: {
-
-                            Authorization: cookies.get('token')
-                        }
-                    }
-                )
+                axios.get(BASE_URL + '/usersnews/')
                     .then(response => {
 
                         console.log(response.data)
                         const data = response.data
 
-                        this.props.updatePoll(data)
+                        this.props.updateNews(data)
 
+                        console.log("o/p" + this.state.newsList)
                     })
 
-                this.props.editModalToggle()
+                this.props.updateImageToggle()
 
             })
             .catch(function (error) {
@@ -78,7 +74,7 @@ class EditModal extends React.Component {
     componentDidMount() {
         const cookies = new Cookies();
 
-        axios.get(BASE_URL+`/polls/${this.props.editItem}`,
+        axios.get(BASE_URL + `/posts/${this.props.imageItem}`,
             {
                 headers: {
                     Authorization: cookies.get('token')
@@ -87,9 +83,10 @@ class EditModal extends React.Component {
         )
             .then(response => {
 
-                let poll = response.data
+                let news = response.data
                 this.setState({
-                    polltitle: poll.polltitle
+                    images: news.images,
+
                 })
 
             })
@@ -101,26 +98,28 @@ class EditModal extends React.Component {
         return (
             <>
                 <CModal size={'xl'}
-                        show={this.props.editModal}
-                        onClose={this.props.editModalToggle}
+                        show={this.props.updateImageModal}
+                        onClose={this.props.updateImageToggle}
                 >
-                    <CModalHeader closeButton>Polls Detail</CModalHeader>
+                    <CModalHeader closeButton>Update Image</CModalHeader>
                     <CModalBody>
 
                         <CForm onSubmit={this.handleFormSubmit}>
+
                             <CFormGroup>
+                                <CLabel htmlFor="images">Images</CLabel>
 
-                                <CLabel htmlFor="posttitle">Poll tittle</CLabel>
-                                <CInput name="polltitle" id="polltitle"
-                                        value={this.state.polltitle}
-                                        onChange={this.handleInputChange}
-                                        required="required"/>
+                                <CImg src={BASE_URL + "/PostImage/" + this.state.images}
+                                      alt="image"
+                                      style={{width: 500, height: 400}}/>
+                                <CInput type="file" name="files" onChange={this.imageUploader}
+                                        placeholder="Enter Post Details"/>
                             </CFormGroup>
-
 
                             <CFormGroup>
                                 <CButton type="submit" size="sm" color="primary"><CIcon
                                     name="cil-scrubber"/> Submit</CButton>
+                                <CButton type="reset" size="sm" color="danger"><CIcon name="cil-ban"/> Reset</CButton>
                             </CFormGroup>
 
                         </CForm>
@@ -133,4 +132,4 @@ class EditModal extends React.Component {
 
 }
 
-export default EditModal
+export default UpdateImageModal

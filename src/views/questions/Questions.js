@@ -1,20 +1,21 @@
 import React from 'react'
 import {CCard, CCardBody, CCol, CNav, CNavItem, CNavLink, CRow, CTabContent, CTabPane, CTabs,} from '@coreui/react'
-import PollForm from "./PollForm";
-import PollTable from "./PollTable";
+import NewsForm from "./NewsForm";
+import NewsTable from "./NewsTable";
 import * as axios from "axios";
+import DeleteModal from "./modals/DeleteModal";
 import SuccessAlert from "../../ui/alerts/SuccessAlert";
 import DeleteAlert from "../../ui/alerts/DeleteAlert";
 import Cookies from "universal-cookie";
 import {BASE_URL} from "../../api/Api";
 
-class Polls extends React.Component {
+class Questions extends React.Component {
 
     constructor(props) {
         super(props);
 
         this.state = {
-            pollList: [],
+            newsList: [],
             deleteModal: false,
             showSuccessAlert: false,
             showDeleteAlert: false,
@@ -35,37 +36,30 @@ class Polls extends React.Component {
 
     }
 
-    componentDidMount() {
-
-        const cookies = new Cookies();
-
-        axios.get(BASE_URL+'/polls/',
-            {
-                headers: {
-
-                    Authorization: cookies.get('token')
-                }
-            }
-        )
-            .then(response => {
-
-                console.log(response.data)
-                const data = response.data
-                this.setState({
-                    pollList: data
-                })
-
-                console.log("o/p" + this.state.pollList)
-            })
-    }
-
-    updatePoll = (pollList) => {
+    updateNews = (newsList) => {
 
         this.setState({
-            pollList: pollList
+            newsList: newsList
         })
 
 
+    }
+
+    editProduct = () => {
+    }
+
+    deleteNews = (id) => {
+
+        this.setState({
+                deleteModal: true
+            }
+        )
+
+
+        return (
+
+            <DeleteModal deleteModal={this.props.deleteModal}/>
+        )
     }
 
     showAlert = () => {
@@ -99,25 +93,41 @@ class Polls extends React.Component {
                 addNavLink: true,
                 addTab: true,
                 manageNavLink: false,
-                manageTab: false,
-            },
-            showSuccessAlert: false,
-            showDeleteAlert: false
-        })
-    }
-
-    manageTabController = () => {
-        this.setState({
-            modal: {
-                addNavLink: false,
-                addTab: false,
-                manageNavLink: true,
-                manageTab: true
+                manageTab: false
             }
         })
     }
 
+    manageTabController = () => {
 
+        const cookies = new Cookies();
+
+        axios.get(BASE_URL+'/posts/',
+            {
+                headers: {
+
+                    Authorization: cookies.get('token')
+                }
+            }
+        )
+            .then(response => {
+
+                console.log(response.data)
+                const data = response.data
+
+                this.setState({
+                    newsList: data,
+                    modal: {
+                        addNavLink: false,
+                        addTab: false,
+                        manageNavLink: true,
+                        manageTab: true
+                    }
+                })
+
+            })
+    }
+    
     render() {
         return (
 
@@ -129,12 +139,12 @@ class Polls extends React.Component {
 
                 {this.state.showSuccessAlert === true ?
                     <SuccessAlert
-                        message={"Polls is added Successfully..."}/>
+                        message={"News is added Successfully..."}/>
                     : null}
 
                 {this.state.showDeleteAlert === true ?
                     <DeleteAlert
-                        message={"Polls is deleted..."}/>
+                        message={"News is deleted..."}/>
                     : null}
 
                 <CRow>
@@ -145,7 +155,7 @@ class Polls extends React.Component {
                                     <CNav variant="tabs">
                                         <CNavItem onClick={this.addTabController}>
                                             <CNavLink active={this.state.modal.addNavLink}>
-                                                Add Polls
+                                                Add News
                                             </CNavLink>
                                         </CNavItem>
                                         <CNavItem onClick={this.manageTabController}>
@@ -158,18 +168,20 @@ class Polls extends React.Component {
                                     <CTabContent>
 
                                         <CTabPane active={this.state.modal.addTab}>
-                                            <PollForm
+                                            <NewsForm
                                                 showErrorAlert={this.showErrorAlert}
                                                 showAlert={this.showAlert}
                                                 manageTabController={this.manageTabController}
-                                                updatePoll={this.updatePoll}/>
+                                                updateNews={this.updateNews}/>
                                         </CTabPane>
 
                                         <CTabPane active={this.state.modal.manageTab}>
-                                            <PollTable
+                                            <NewsTable
                                                 showDeleteAlert={this.showDeleteAlert}
-                                                updatePoll={this.updatePoll}
-                                                pollList={this.state.pollList}/>
+                                                updateNews={this.updateNews}
+                                                deleteSupplier={this.deleteSupplier}
+                                                editProduct={this.editProduct}
+                                                newsList={this.state.newsList}/>
                                         </CTabPane>
 
                                     </CTabContent>
@@ -186,4 +198,4 @@ class Polls extends React.Component {
 
 }
 
-export default Polls
+export default Questions

@@ -1,7 +1,7 @@
 import React from 'react'
 import {CCard, CCardBody, CCol, CNav, CNavItem, CNavLink, CRow, CTabContent, CTabPane, CTabs,} from '@coreui/react'
-import NewsForm from "./NewsForm";
-import NewsTable from "./NewsTable";
+import QuestionsForm from "./QuestionsForm";
+import QuestionsTable from "./QuestionsTable";
 import * as axios from "axios";
 import DeleteModal from "./modals/DeleteModal";
 import SuccessAlert from "../../ui/alerts/SuccessAlert";
@@ -9,13 +9,13 @@ import DeleteAlert from "../../ui/alerts/DeleteAlert";
 import Cookies from "universal-cookie";
 import {BASE_URL} from "../../api/Api";
 
-class News extends React.Component {
+class Questions extends React.Component {
 
     constructor(props) {
         super(props);
 
         this.state = {
-            newsList: [],
+            questionsList: [],
             deleteModal: false,
             showSuccessAlert: false,
             showDeleteAlert: false,
@@ -36,10 +36,10 @@ class News extends React.Component {
 
     }
 
-    updateNews = (newsList) => {
+    updateQuestions = (questionsList) => {
 
         this.setState({
-            newsList: newsList
+            questionsList: questionsList
         })
 
 
@@ -102,7 +102,7 @@ class News extends React.Component {
 
         const cookies = new Cookies();
 
-        axios.get(BASE_URL+'/posts/',
+        axios.get(BASE_URL+'/Questions/',
             {
                 headers: {
 
@@ -116,7 +116,7 @@ class News extends React.Component {
                 const data = response.data
 
                 this.setState({
-                    newsList: data,
+                    questionsList: data,
                     modal: {
                         addNavLink: false,
                         addTab: false,
@@ -155,7 +155,7 @@ class News extends React.Component {
                                     <CNav variant="tabs">
                                         <CNavItem onClick={this.addTabController}>
                                             <CNavLink active={this.state.modal.addNavLink}>
-                                                Add News
+                                                Add Questions
                                             </CNavLink>
                                         </CNavItem>
                                         <CNavItem onClick={this.manageTabController}>
@@ -168,20 +168,20 @@ class News extends React.Component {
                                     <CTabContent>
 
                                         <CTabPane active={this.state.modal.addTab}>
-                                            <NewsForm
+                                            <QuestionsForm
                                                 showErrorAlert={this.showErrorAlert}
                                                 showAlert={this.showAlert}
                                                 manageTabController={this.manageTabController}
-                                                updateNews={this.updateNews}/>
+                                                updateQuestions={this.updateQuestions}/>
                                         </CTabPane>
 
                                         <CTabPane active={this.state.modal.manageTab}>
-                                            <NewsTable
+                                            <QuestionsTable
                                                 showDeleteAlert={this.showDeleteAlert}
                                                 updateNews={this.updateNews}
                                                 deleteSupplier={this.deleteSupplier}
                                                 editProduct={this.editProduct}
-                                                newsList={this.state.newsList}/>
+                                                questionsList={this.state.questionsList}/>
                                         </CTabPane>
 
                                     </CTabContent>
@@ -198,4 +198,4 @@ class News extends React.Component {
 
 }
 
-export default News
+export default Questions

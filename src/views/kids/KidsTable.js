@@ -9,53 +9,18 @@ import * as axios from "axios";
 import UpdateImageModal from "./modals/UpdateImageModal";
 import {BASE_URL} from "../../api/Api";
 
-const deleteImage = (id, props) => {
-
-    const cookies = new Cookies();
-
-    console.log(cookies.get('token'))
-
-    axios.put(`https://frozen-refuge-74833.herokuapp.com/posts/deleteImage/${id}`, null,
-        {
-            headers: {
-
-                Authorization: cookies.get('token')
-            }
-        }
-    )
-        .then(response => {
-
-            axios.get('https://frozen-refuge-74833.herokuapp.com/posts/',
-                {
-                    headers: {
-
-                        Authorization: cookies.get('token')
-                    }
-                }
-            )
-                .then(response => {
-
-                    const data = response.data
-                    props.updateNews(data)
-
-                })
-        })
-
-}
-
 const fields = [
 
-    'posttitle',
-    'postcategory',
-    'postdetails',
-    'postconclusion',
-    'images',
-    'share',
+    'questions',
+    'description',
+    'type',
+    'options',
+    'correctANswer',
     'actions']
 
-const NewsTable = (props) => {
+const QuestionsTable = (props) => {
 
-    let newsList = props.newsList
+    let questionsList = props.questionsList
     const [modal, setModal] = useState(false);
     const [detailModal, setDetailModal] = useState(false);
     const [editModal, setEditModal] = useState(false);
@@ -116,7 +81,7 @@ const NewsTable = (props) => {
                 toggle={toggle}/>
 
             <CDataTable
-                items={newsList}
+                items={questionsList}
                 fields={fields}
                 bordered
                 itemsPerPage={10}
@@ -127,13 +92,10 @@ const NewsTable = (props) => {
 
                             <td>
                                 {item.images !== null ?
-                                    <CImg src={BASE_URL+"/PostImage/" + item.images}
+                                    <CImg src={BASE_URL + "/PostImage/" + item.images}
                                           alt="image" style={{width: 500, height: 400}}/> :
                                     <CImg src={""}
                                           alt="image" style={{width: 500, height: 400}}/>}
-
-                                {item.images !== null ?
-                                    <button onClick={() => deleteImage(item._id, props)}>Delete Image</button> : null}
                             </td>
                         ),
                     'share':
@@ -161,16 +123,6 @@ const NewsTable = (props) => {
 
                                         <CDropdownItem
                                             onClick={() => detailModalToggle(item._id)}>View</CDropdownItem>
-
-                                        <CDropdownItem
-                                            onClick={() => updateImageToggle(item._id)}>Update Image</CDropdownItem>
-
-                                        <CDropdownItem
-                                            onClick={() => editModalToggle(item._id)}>Edit</CDropdownItem>
-
-                                        <CDropdownItem
-                                            key={item._id}
-                                            onClick={() => toggle(item._id)}>Delete</CDropdownItem>
                                     </CDropdownMenu>
                                 </CDropdown>
 
@@ -184,4 +136,4 @@ const NewsTable = (props) => {
     )
 }
 
-export default NewsTable
+export default QuestionsTable
